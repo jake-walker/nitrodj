@@ -5,6 +5,7 @@ import stream
 import time
 import os
 from logzero import logger
+import web
 
 
 def download_task(q):
@@ -69,3 +70,5 @@ if __name__ == "__main__":
 
     q.add_song("agQq0IsdlJQ")
     q.add_song("qAeybdD5UoQ")
+
+    web.app.run(debug=True, host="0.0.0.0")

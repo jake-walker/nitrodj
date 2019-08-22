@@ -156,3 +156,9 @@ Vagrantfile
 songs/
 oldcode/
 nitro_*.db
+
+node_modules/
+
+# The static and templates folders are built
+web/static/
+web/templates/

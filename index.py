@@ -34,17 +34,16 @@ def download_task(q):
 def stream_task(q):
     # Create a new streamer instance
     st = stream.Streamer(host=os.getenv("NITRO_ICECAST_HOST", "localhost"),
-                         port=os.getenv("NITRO_ICECAST_POST", 8000),
+                         port=os.getenv("NITRO_ICECAST_PORT", 8000),
                          password=os.getenv("NITRO_ICECAST_PASSWORD", "hackme"))
-    warned = False
     while True:
         # Get the next downloaded song
         song = q.get_next_song(only_downloaded=True)
         # If there is no song
         if song is None:
-            if not warned and st.open:
+            if st.open:
                 logger.warn("There are no songs on the queue!")
-                warned = True
+                st.stop()
             # Wait 0.2 seconds and try again
             time.sleep(0.2)
             continue
@@ -68,7 +67,4 @@ if __name__ == "__main__":
     stream_thread = threading.Thread(target=stream_task, args=(q,))
     stream_thread.start()
 
-    q.add_song("agQq0IsdlJQ")
-    q.add_song("qAeybdD5UoQ")
-
-    web.app.run(debug=True, host="0.0.0.0")
+    web.run(q)

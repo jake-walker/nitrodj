@@ -21,7 +21,7 @@ class Streamer:
 
         # Set connection information
         self.shout.host = host
-        self.shout.port = port
+        self.shout.port = int(port)
         self.shout.mount = "/stream"
         self.shout.user = "source"
         self.shout.password = password
@@ -32,6 +32,9 @@ class Streamer:
         self.shout.description = "NitroDJ instance"
         self.shout.url = "http://{}:{}/stream".format(host, port)
 
+        self.shout.open()
+        self.shout.close()
+
     def start(self):
         logger.info("Starting stream!")
         self.shout.open()
@@ -39,7 +42,7 @@ class Streamer:
 
     def stop(self):
         logger.info("Stopping stream")
-        self.shout.stop()
+        self.shout.close()
         self.open = False
 
     def skip_song(self):
@@ -68,7 +71,10 @@ class Streamer:
             if not len(buffer):
                 break
 
-            self.shout.send(buffer)
-            self.shout.sync()
+            try:
+                self.shout.send(buffer)
+                self.shout.sync()
+            except shout.ShoutException:
+                self.start()
 
         file.close()

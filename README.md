@@ -19,8 +19,9 @@ yarn build
 cd ../
 
 # Start server
-export NITRO_ICECAST_HOST="example.com"
-export NITRO_ICECAST_PORT="8000"
-export NITRO_ICECAST_PASSWORD="password"
+export NITRO_ICECAST_HOST="example.com"   # Icecast Server Host
+export NITRO_ICECAST_PORT="8000"          # Icecast Server Port
+export NITRO_ICECAST_PASSWORD="password"  # Icecast Source Password
+export NITRO_YOUTUBE_KEY="12345"          # YouTube Data API Key
 python3 index.py
 ```

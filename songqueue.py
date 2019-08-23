@@ -100,5 +100,8 @@ class SongQueue:
         self.conn.commit()
         self.db_lock.release()
 
+    def get_queue(self):
+        return self.queue
+
     def __hash__(self):
         return hash(str(self.queue))

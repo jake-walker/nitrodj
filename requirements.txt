@@ -3,3 +3,4 @@ youtube-data-api
 python-shout3
 pafy
 flask
+flask-cors

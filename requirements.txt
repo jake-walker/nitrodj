@@ -4,3 +4,4 @@ python-shout3
 pafy
 flask
 flask-cors
+youtube-dl

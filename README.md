@@ -6,6 +6,12 @@
     A self-hosted democratic radio station.
 </h3>
 
+<p align="center">
+    <strong>
+        <a href="https://jake-walker.github.io/nitrodj/">Website</a>
+    </strong>
+</p>
+
 ## Overview
 
 NitroDJ is designed for parties and allows users to queue up their own music and be in charge of the music.
@@ -20,7 +26,7 @@ NitroDJ takes songs from YouTube and streams them to an Icecast Server. This sol
 
 To run NitroDJ you will need to host both NitroDJ itself and also an Icecast server to stream to.
 
-**Dependencies:** `libshout3`, `libshout3-dev`, `ffmpeg`, `node` and `yarn`
+**Dependencies:** `libshout`, `libshout-dev`, `ffmpeg`, `node` and `yarn`
 
 ```bash
 # DEBIAN BASED DISTROS ONLY
@@ -81,7 +87,7 @@ python3 index.py
 |    ` api.py <i><small>(the API routes for Flask)</small></i>
 |- index.py <i><small>(the main application)</small></i>
  ` songqueue.py <i><small>(the code for managing song queues)</small></i>
-</pre></code>
+</code></pre>
 
 ### How it works
 
@@ -89,7 +95,7 @@ There are 3 seperate threads: the downloader, the streamer and the web app.
 
 The web app takes song requests from users and handles searches, then songs get added to the queue. Once a song has been added, metadata about the song is downloaded and added to the database.
 
-The downloader keeps finding songs in the queue that haven't been downloaded yet. Once one is found, the song is downloaded into the `./download/songs/` folder and that path is stored in the database for future reference. Then the downloader looks for more songs.
+The downloader keeps finding songs in the queue that haven't been downloaded yet. Once one is found, the song is downloaded into the `./songs/` folder and that path is stored in the database for future reference. Then the downloader looks for more songs.
 
 The streamer takes the next downloaded song from the queue, splits it up into chunks and sends them off to the Icecast server.
 

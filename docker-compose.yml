@@ -1,0 +1,34 @@
+version: '2'
+services:
+  nitrodj:
+    image: jakewalker/nitrodj
+    environment:
+      - NITRO_ICECAST_HOST=icecast
+      - NITRO_ICECAST_PASSWORD=aaa
+      - NITRO_YOUTUBE_KEY=12345
+      - NITRO_ICECAST_PORT=8000
+    ports:
+      - '80:5000'
+    volumes:
+      - 'nitrodj_songs:/opt/songs'
+    depends_on:
+      - icecast
+    links:
+      - icecast
+  icecast:
+    image: moul/icecast
+    volumes:
+      - 'icecast_logs:/var/log/icecast2'
+      - '/etc/localtime:/etc/localtime:ro'
+    environment:
+      - ICECAST_SOURCE_PASSWORD=aaa
+      - ICECAST_ADMIN_PASSWORD=bbb
+      - ICECAST_PASSWORD=ccc
+      - ICECAST_RELAY_PASSWORD=ddd
+    ports:
+      - '8000:8000'
+volumes:
+  icecast_logs:
+    driver: local
+  nitrodj_songs:
+    driver: local

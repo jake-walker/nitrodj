@@ -60,6 +60,14 @@ export NITRO_YOUTUBE_KEY="12345"          # YouTube Data API Key
 python3 index.py
 ```
 
+## Docker
+
+Docker is the recommended way of using NitroDJ and it really simplifies setup.
+
+```bash
+docker-compose up -d
+```
+
 ## Project Structure
 
 <pre><code>

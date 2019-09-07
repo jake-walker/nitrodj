@@ -4,13 +4,21 @@ import pafy
 import os
 import threading
 
+def get_db_path():
+    script_path = os.path.realpath(__file__)
+    folder_path = os.path.dirname(script_path)
+    db_path = os.path.abspath(os.path.join(folder_path, "/songs/nitro_{}.db"))
+    if not os.path.exists(db_path):
+        os.makedirs(db_path)
+    return db_path
+
 
 class SongQueue:
     queue = []
 
     def __init__(self, queue_name="default"):
         logger.debug("Creating new song queue: %s", queue_name)
-        self.conn = sqlite3.connect("nitro_{}.db".format(queue_name), check_same_thread=False)
+        self.conn = sqlite3.connect(get_db_path().format(queue_name), check_same_thread=False)
         self.c = self.conn.cursor()
 
         # Create table

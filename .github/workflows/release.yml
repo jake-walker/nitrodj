@@ -1,0 +1,22 @@
+name: Release
+on:
+  push:
+    branches:
+    - master
+jobs:
+  docker_release:
+    name: Docker Release
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v1
+    - name: Docker Login
+      uses: actions/docker/login@master
+    - name: Docker Build
+      uses: actions/docker/cli@master
+      with:
+        args: build . --file Dockerfile --tag jakewalker/nitrodj
+    - name: Docker Push
+      uses: actions/docker/cli@master
+      with:
+        args: push jakewalker/nitrodj
